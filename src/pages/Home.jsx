@@ -54,8 +54,8 @@ const Home = () => {
 
   return (
     <div className="bg-white">
-      {/* Hero Section */}
-      <div className="relative bg-gradient-to-br from-primary-50 via-white to-primary-100 overflow-hidden">
+  {/* Hero Section */}
+  <div className="relative bg-gradient-to-br from-blue-50 via-blue-100 to-blue-200 overflow-hidden">
         <div className="max-w-7xl mx-auto">
           <div className="relative z-10 pb-8 bg-transparent sm:pb-16 md:pb-20 lg:max-w-2xl lg:w-full lg:pb-28 xl:pb-32">
             <main className="mt-10 mx-auto max-w-7xl px-4 sm:mt-12 sm:px-6 md:mt-16 lg:mt-20 lg:px-8 xl:mt-28">
@@ -102,8 +102,8 @@ const Home = () => {
         </div>
       </div>
 
-      {/* Stats Section */}
-      <div className="bg-primary-600">
+  {/* Stats Section */}
+  <div className="bg-gradient-to-br from-white-100 via-blue-100 to-blue-100">
         <div className="max-w-7xl mx-auto py-12 px-4 sm:py-16 sm:px-6 lg:px-8 lg:py-20">
           <div className="max-w-4xl mx-auto text-center">
             <h2 className="text-3xl font-extrabold text-black sm:text-4xl">
@@ -128,8 +128,8 @@ const Home = () => {
         </div>
       </div>
 
-      {/* Features Section */}
-      <div className="py-12 bg-white">
+  {/* Features Section */}
+  <div className="py-12 bg-gradient-to-br from-blue-50 via-blue-100 to-blue-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="lg:text-center">
             <h2 className="text-base text-primary-600 font-semibold tracking-wide uppercase">Features</h2>
@@ -167,8 +167,8 @@ const Home = () => {
         </div>
       </div>
 
-      {/* CTA Section */}
-      <div className="bg-gradient-to-r from-primary-600 to-primary-800">
+  {/* CTA Section */}
+  <div className="bg-gradient-to-br from-blue-100 via-blue-50 to-blue-200">
         <div className="max-w-2xl mx-auto text-center py-16 px-4 sm:py-20 sm:px-6 lg:px-8">
           <h2 className="text-3xl font-extrabold text-blue-600 sm:text-4xl">
             <span className="block">Ready to optimize your content?</span>

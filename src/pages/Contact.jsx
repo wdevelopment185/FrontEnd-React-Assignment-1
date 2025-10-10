@@ -87,9 +87,9 @@ const Contact = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-white">
-      {/* Hero Section */}
-      <div className="bg-gradient-to-br from-primary-50 to-white py-16">
+  <div className="min-h-screen bg-blue-50">
+  {/* Hero Section */}
+  <div className="bg-gradient-to-br from-blue-100 via-blue-50 to-blue-200 py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
             <h1 className="text-4xl font-extrabold text-gray-900 sm:text-5xl">
@@ -102,11 +102,11 @@ const Contact = () => {
         </div>
       </div>
 
-      <div className="py-16">
+      <div className="bg-white py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
             {/* Contact Form */}
-            <div>
+            <div className="bg-white-50">
               <h2 className="text-2xl font-bold text-gray-900 mb-6">Send us a Message</h2>
               {submitted ? (
                 <div className="bg-green-50 border border-green-200 rounded-lg p-6 text-center">
@@ -192,7 +192,7 @@ const Contact = () => {
             </div>
 
             {/* Contact Information */}
-            <div>
+            <div className="bg-white">
               <h2 className="text-2xl font-bold text-gray-900 mb-6">Other Ways to Reach Us</h2>
               <div className="space-y-6 mb-12">
                 {contactInfo.map((info, index) => (
@@ -210,7 +210,7 @@ const Contact = () => {
               </div>
 
               {/* Office Hours */}
-              <div className="bg-gray-50 rounded-lg p-6 mb-8">
+              <div className="bg-blue-50 rounded-lg p-6 mb-8">
                 <h3 className="text-lg font-semibold text-gray-900 mb-4">Office Hours</h3>
                 <div className="space-y-2 text-gray-600">
                   <div className="flex justify-between">
@@ -257,8 +257,8 @@ const Contact = () => {
         </div>
       </div>
 
-      {/* FAQ Section */}
-      <div className="bg-gray-50 py-16">
+  {/* FAQ Section */}
+  <div className="bg-blue-50 py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold text-gray-900 mb-4">Frequently Asked Questions</h2>

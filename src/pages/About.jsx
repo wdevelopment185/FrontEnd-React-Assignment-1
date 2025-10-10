@@ -69,9 +69,9 @@ const About = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-white">
+  <div className="min-h-screen bg-blue-50">
       {/* Hero Section */}
-      <div className="bg-gradient-to-br from-primary-50 to-white py-16">
+        <div className="bg-gradient-to-br from-blue-100 via-blue-50 to-blue-200 py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
             <h1 className="text-4xl font-extrabold text-gray-900 sm:text-5xl">
@@ -85,7 +85,7 @@ const About = () => {
       </div>
 
       {/* Mission Section */}
-      <div className="py-16">
+        <div className="bg-white py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="lg:grid lg:grid-cols-2 lg:gap-16 items-center">
             <div>
@@ -138,7 +138,7 @@ const About = () => {
       </div>
 
       {/* Values Section */}
-      <div className="bg-gray-50 py-16">
+        <div className="bg-blue-50 py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold text-gray-900 mb-4">Our Values</h2>
@@ -161,7 +161,7 @@ const About = () => {
       </div>
 
       {/* Team Section */}
-      <div className="py-16">
+        <div className="bg-white py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold text-gray-900 mb-4">Meet Our Team</h2>
@@ -190,7 +190,7 @@ const About = () => {
       </div>
 
       {/* Timeline Section */}
-      <div className="bg-gray-50 py-16">
+        <div className="bg-blue-50 py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold text-gray-900 mb-4">Our Journey</h2>
@@ -218,7 +218,7 @@ const About = () => {
       </div>
 
       {/* CTA Section */}
-      <div className="bg-gradient-to-r from-primary-600 to-primary-800 py-16">
+        <div className="bg-gradient-to-br from-blue-100 via-blue-50 to-blue-200 py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-3xl font-bold text-blue-600 mb-4">
             Ready to Transform Your Content?
