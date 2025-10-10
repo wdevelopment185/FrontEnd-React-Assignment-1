@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 
 const statCards = [
@@ -15,29 +15,21 @@ const recentDocs = [
 ];
 
 const Dashboard = () => {
-  const [open, setOpen] = useState(false);
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-blue-100 to-blue-200">
       <div className="flex">
-        {/* Sidebar */}
-        <aside className={`fixed left-0 top-0 bottom-0 z-50 w-64 transform bg-white border-r border-gray-100 p-4 transition-transform duration-300 ease-in-out ${open ? 'translate-x-0' : '-translate-x-full'} pt-20`}>
-          <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-3">
-              <div className="h-10 w-10 bg-gradient-to-r from-primary-500 to-primary-700 rounded-lg flex items-center justify-center text-white font-bold">D</div>
-              <div>
-                <div className="text-sm font-bold text-gray-900">Document<span className="text-primary-600">Optimizer</span></div>
-                <div className="text-xs text-gray-400">Admin</div>
-              </div>
+        {/* Static left sidebar (always visible) */}
+        <aside className="w-64 bg-white border-r border-gray-100 p-6 min-h-screen pt-8">
+          <div className="flex items-center space-x-3 mb-6">
+            <div className="h-10 w-10 bg-gradient-to-r from-primary-500 to-primary-700 rounded-lg flex items-center justify-center text-white font-bold">D</div>
+            <div>
+              <div className="text-sm font-bold text-gray-900">Document<span className="text-primary-600">Optimizer</span></div>
+              <div className="text-xs text-gray-400">Admin</div>
             </div>
-            <button className="md:hidden text-gray-500" onClick={() => setOpen(false)} aria-label="Close sidebar">
-              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-              </svg>
-            </button>
           </div>
 
-          <nav className="mt-6">
+          <nav>
             <ul className="space-y-1">
               <li>
                 <Link to="/dashboard" className="flex items-center gap-3 px-3 py-2 rounded-md text-sm font-medium text-blue-600 bg-primary-50">
@@ -91,17 +83,12 @@ const Dashboard = () => {
           </nav>
         </aside>
 
-        {/* Page content wrapper */}
-        <div className={`flex-1 relative transition-all duration-300 ${open ? 'md:ml-64' : 'md:ml-0'}`}>
+        <div className="flex-1 relative">
           {/* header toggle will be used; no floating button */}
           <header className="sticky top-0 z-40 bg-white border-b border-gray-100">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
               <div className="flex items-center gap-4">
-                <button className="inline-flex items-center justify-center p-2 rounded-md text-gray-600 hover:bg-primary-50" onClick={() => setOpen(!open)} aria-label="Toggle sidebar">
-                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16"/>
-                  </svg>
-                </button>
+                {/* Sidebar toggle removed */}
                 <div>
                   <h1 className="text-2xl font-bold text-gray-900">Welcome back!</h1>
                   <p className="text-sm text-gray-500">Here's what's happening with your documents today.</p>
