@@ -16,64 +16,12 @@ const recentDocs = [
 
 const Dashboard = () => {
   const [open, setOpen] = useState(false);
-  const headerRef = useRef(null);
-  const containerRef = useRef(null);
-  const [btnStyle, setBtnStyle] = useState({ top: '80px', left: 16 });
-  const [sidebarStyle, setSidebarStyle] = useState({ top: '80px', bottom: '0px' });
-
-  useEffect(() => {
-    const updatePos = () => {
-      const headerEl = headerRef.current;
-      const containerEl = containerRef.current;
-      const w = window.innerWidth;
-      if (!headerEl || !containerEl) return;
-      const hdrRect = headerEl.getBoundingClientRect();
-      const contRect = containerEl.getBoundingClientRect();
-
-
-      // Position the button to the left of the "Welcome back!" heading
-      // vertically center it inside the header and place it to the left of the content container
-      const btnHeight = 40; // approx button size
-      const top = Math.round(hdrRect.top + hdrRect.height / 2 - btnHeight / 2);
-      // place the button to the left of the main content area (so it sits in the left gap)
-      let left = Math.round(contRect.left - 44);
-
-      // if the computed left is too small (offscreen), clamp it
-      if (left < 8) left = 8;
-
-      // ensure the button stays visible inside viewport
-      if (left < 8) left = 8;
-
-      setBtnStyle({ top: `${top}px`, left: `${left}px` });
-
-      // footer may be outside this component, so query it from the DOM
-      const footerEl = document.querySelector('footer');
-      let bottomPx = 0;
-      if (footerEl) {
-        const fRect = footerEl.getBoundingClientRect();
-        // if footer top is visible in viewport, compute distance from viewport bottom to footer top
-        if (fRect.top < window.innerHeight) {
-          bottomPx = Math.max(0, Math.round(window.innerHeight - fRect.top));
-        } else {
-          bottomPx = 0; // footer not visible yet
-        }
-      }
-
-      // compute sidebar top so it doesn't overlap header and bottom so it stops above footer
-      const sbTop = Math.round(hdrRect.bottom);
-      setSidebarStyle({ top: `${sbTop}px`, bottom: `${bottomPx}px` });
-    };
-
-    updatePos();
-    window.addEventListener('resize', updatePos);
-    return () => window.removeEventListener('resize', updatePos);
-  }, [open]);
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-blue-100 to-blue-200">
       <div className="flex">
-        {/* Sidebar (toggable on all sizes). Starts below the header so header remains visible */}
-  <aside style={{ top: sidebarStyle.top, bottom: sidebarStyle.bottom }} className={`fixed left-0 z-50 w-64 transform bg-white border-r border-gray-100 p-4 transition-transform duration-300 ease-in-out ${open ? 'translate-x-0' : '-translate-x-full'}`}>
+        {/* Sidebar */}
+        <aside className={`fixed left-0 top-0 bottom-0 z-50 w-64 transform bg-white border-r border-gray-100 p-4 transition-transform duration-300 ease-in-out ${open ? 'translate-x-0' : '-translate-x-full'} pt-20`}>
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-3">
               <div className="h-10 w-10 bg-gradient-to-r from-primary-500 to-primary-700 rounded-lg flex items-center justify-center text-white font-bold">D</div>
@@ -146,8 +94,8 @@ const Dashboard = () => {
         {/* Page content wrapper */}
         <div className={`flex-1 relative transition-all duration-300 ${open ? 'md:ml-64' : 'md:ml-0'}`}>
           {/* header toggle will be used; no floating button */}
-          <header ref={headerRef} className="sticky top-0 z-40 bg-white border-b border-gray-100">
-            <div ref={containerRef} className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
+          <header className="sticky top-0 z-40 bg-white border-b border-gray-100">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
               <div className="flex items-center gap-4">
                 <button className="inline-flex items-center justify-center p-2 rounded-md text-gray-600 hover:bg-primary-50" onClick={() => setOpen(!open)} aria-label="Toggle sidebar">
                   <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
