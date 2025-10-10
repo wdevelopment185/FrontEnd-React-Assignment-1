@@ -46,8 +46,11 @@ const Navbar = () => {
                 {item.name}
               </Link>
             ))}
-            <Link to="/services" className="bg-gradient-to-r from-primary-500 to-primary-700 text-blue-600 px-6 py-2 rounded-lg font-medium hover:from-primary-600 hover:to-primary-800 transition-all duration-200 shadow-md hover:shadow-lg">
-              Get Started
+            <Link to="/login" className="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium transition-all duration-200">
+              Log In
+            </Link>
+            <Link to="/signup" className="bg-blue-600 text-white px-6 py-2 rounded-lg font-medium hover:bg-blue-700 transition-all duration-200 shadow-md hover:shadow-lg">
+              Sign Up
             </Link>
           </div>
 
@@ -90,8 +93,11 @@ const Navbar = () => {
                 {item.name}
               </Link>
             ))}
-            <Link to="/services" className="w-full mt-4 bg-gradient-to-r from-primary-500 to-primary-700 text-blue-600 px-6 py-2 rounded-lg font-medium hover:from-primary-600 hover:to-primary-800 transition-all duration-200 shadow-md block text-center" onClick={() => setIsOpen(false)}>
-              Get Started
+            <Link to="/login" className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-blue-600 hover:bg-primary-50 transition-all duration-200" onClick={() => setIsOpen(false)}>
+              Sign In
+            </Link>
+            <Link to="/signup" className="w-full mt-4 bg-blue-600 text-white px-6 py-2 rounded-lg font-medium hover:bg-blue-700 transition-all duration-200 shadow-md block text-center" onClick={() => setIsOpen(false)}>
+              Sign Up
             </Link>
           </div>
         </div>
