@@ -3,23 +3,26 @@ import React from 'react';
 const About = () => {
   const team = [
     {
-      name: 'Sarah Johnson',
-      role: 'CEO & Founder',
-      image: 'https://images.unsplash.com/photo-1494790108755-2616b612b786?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80',
-      bio: 'Former AI researcher with 10+ years in natural language processing and content optimization.'
+      name: "Harry Johnson",
+      role: "CEO & Founder",
+      image:
+        "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-4.0.3&auto=format&fit=crop&w=687&q=80",
+      bio: "Former AI researcher with 10+ years in natural language processing and content optimization.",
     },
     {
-      name: 'Michael Chen',
-      role: 'CTO',
-      image: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80',
-      bio: 'Machine learning expert specializing in text analysis and AI model optimization for enterprise applications.'
+      name: "Michael Chen",
+      role: "CTO",
+      image:
+        "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80",
+      bio: "Machine learning expert specializing in text analysis and AI model optimization for enterprise applications.",
     },
     {
-      name: 'Emily Rodriguez',
-      role: 'Head of Product',
-      image: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80',
-      bio: 'UX designer and product strategist focused on creating intuitive tools for content creators and marketers.'
-    }
+      name: "Emily Rodriguez",
+      role: "Head of Product",
+      image:
+        "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80",
+      bio: "UX designer and product strategist focused on creating intuitive tools for content creators and marketers.",
+    },
   ];
 
   const values = [
