@@ -95,7 +95,7 @@ const Footer = () => {
                     <li key={item.name}>
                       <Link
                         to={item.href}
-                        className="text-base text-gray-400 hover:text-primary-400 transition-colors duration-200"
+                        className="text-base text-gray-400 hover:text-primary-400 hover:underline transition-all duration-200"
                       >
                         {item.name}
                       </Link>
@@ -112,7 +112,7 @@ const Footer = () => {
                     <li key={item.name}>
                       <Link
                         to={item.href}
-                        className="text-base text-gray-400 hover:text-primary-400 transition-colors duration-200"
+                        className="text-base text-gray-400 hover:text-primary-400 hover:underline transition-all duration-200"
                       >
                         {item.name}
                       </Link>
@@ -131,7 +131,7 @@ const Footer = () => {
                     <li key={item.name}>
                       <Link
                         to={item.href}
-                        className="text-base text-gray-400 hover:text-primary-400 transition-colors duration-200"
+                        className="text-base text-gray-400 hover:text-primary-400 hover:underline transition-all duration-200"
                       >
                         {item.name}
                       </Link>
@@ -148,10 +148,10 @@ const Footer = () => {
               &copy; {currentYear} DocumentOptimizer. All rights reserved.
             </p>
             <div className="mt-4 md:mt-0 flex space-x-6">
-              <Link to="/privacy" className="text-sm text-gray-400 hover:text-primary-400 transition-colors duration-200">
+              <Link to="/privacy" className="text-sm text-gray-400 hover:text-primary-400 hover:underline transition-all duration-200">
                 Privacy Policy
               </Link>
-              <Link to="/terms" className="text-sm text-gray-400 hover:text-primary-400 transition-colors duration-200">
+              <Link to="/terms" className="text-sm text-gray-400 hover:text-primary-400 hover:underline transition-all duration-200">
                 Terms of Service
               </Link>
             </div>
