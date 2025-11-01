@@ -1,5 +1,10 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { sanitizeInput } from '../utils/sanitizeInput';
+import { regEmailTest } from '../utils/regEmailTest';
+import { isAlphabetOnly } from '../utils/isAlphabetOnly';
+import { charLength } from '../utils/charLength';
+import { registerUser } from '../services/backend';
 
 const Signup = () => {
   const [formData, setFormData] = useState({
@@ -8,24 +13,92 @@ const Signup = () => {
     email: '',
     password: '',
     confirmPassword: '',
-    agreeToTerms: false
+    agreeToTerms: false,
+    country: ''
   });
+
+  const [countryList, setCountryList] = useState([]);
+  
+  const [errors, setErrors] = useState({});
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
+
     setFormData(prev => ({
       ...prev,
       [name]: type === 'checkbox' ? checked : value
     }));
   };
 
-  const handleSubmit = (e) => {
+  useEffect(() => {
+    // In a real app, fetch this from an API.
+    setCountryList(['Pakistan', 'India', 'USA', 'United Kingdom', 'Canada', 'Australia']);
+  }, []);
+
+  const validate = (data) => {
+    const e = {};
+    // sanitize inputs first
+    const firstName = sanitizeInput(data.firstName);
+    const lastName = sanitizeInput(data.lastName);
+    const email = sanitizeInput(data.email);
+    const password = sanitizeInput(data.password);
+    const confirmPassword = sanitizeInput(data.confirmPassword);
+
+    if (!firstName) e.firstName = 'First name is required';
+    else if (isAlphabetOnly(firstName) === 0) e.firstName = 'Use letters only (one optional space)';
+    else if (charLength(firstName, 2, 35) === 0) e.firstName = 'First name length should be 2–35 chars';
+
+    if (!lastName) e.lastName = 'Last name is required';
+    else if (isAlphabetOnly(lastName) === 0) e.lastName = 'Use letters only (one optional space)';
+    else if (charLength(lastName, 2, 35) === 0) e.lastName = 'Last name length should be 2–35 chars';
+
+    if (!email) e.email = 'Email is required';
+    else if (regEmailTest(email) === 0) e.email = 'Enter a valid email address';
+
+    if (!password) e.password = 'Password is required';
+    else if (charLength(password, 6, 128) === 0) e.password = 'Password must be at least 6 characters';
+
+    if (password !== confirmPassword) e.confirmPassword = 'Passwords do not match';
+
+    if (!data.agreeToTerms) e.agreeToTerms = 'You must agree to terms';
+
+    return e;
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (formData.password !== formData.confirmPassword) {
-      alert('Passwords do not match');
-      return;
+    const validationErrors = validate(formData);
+    setErrors(validationErrors);
+    if (Object.keys(validationErrors).length > 0) return;
+    
+    setIsSubmitting(true);
+    try {
+      const payload = {
+        firstName: sanitizeInput(formData.firstName),
+        lastName: sanitizeInput(formData.lastName),
+        email: sanitizeInput(formData.email),
+        password: sanitizeInput(formData.password),
+        country: sanitizeInput(formData.country),
+        agreeToTerms: !!formData.agreeToTerms
+      };
+
+      await registerUser(payload);
+      navigate('/login');
+    } catch (err) {
+      if (err.data?.errors) {
+        const serverErrors = {};
+        err.data.errors.forEach((error) => {
+          serverErrors[error.path] = error.msg;
+        });
+        setErrors(serverErrors);
+      } else {
+        setErrors({ server: err.data?.message || 'Registration failed' });
+      }
+    } finally {
+      setIsSubmitting(false);
     }
-    console.log('Signup attempt:', formData);
   };
 
   return (
@@ -69,6 +142,7 @@ const Signup = () => {
                     className="mt-1 appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm"
                     placeholder="First name"
                   />
+                  {errors.firstName && <p className="mt-1 text-sm text-red-600">{errors.firstName}</p>}
                 </div>
                 <div>
                   <label htmlFor="lastName" className="block text-sm font-medium text-gray-700">
@@ -84,6 +158,7 @@ const Signup = () => {
                     className="mt-1 appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm"
                     placeholder="Last name"
                   />
+                  {errors.lastName && <p className="mt-1 text-sm text-red-600">{errors.lastName}</p>}
                 </div>
               </div>
 
@@ -101,6 +176,7 @@ const Signup = () => {
                   className="mt-1 appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm"
                   placeholder="Enter your email"
                 />
+                {errors.email && <p className="mt-1 text-sm text-red-600">{errors.email}</p>}
               </div>
 
               <div>
@@ -117,6 +193,7 @@ const Signup = () => {
                   className="mt-1 appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm"
                   placeholder="Create a password"
                 />
+                {errors.password && <p className="mt-1 text-sm text-red-600">{errors.password}</p>}
               </div>
 
               <div>
@@ -133,6 +210,23 @@ const Signup = () => {
                   className="mt-1 appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm"
                   placeholder="Confirm your password"
                 />
+                {errors.confirmPassword && <p className="mt-1 text-sm text-red-600">{errors.confirmPassword}</p>}
+              </div>
+              {/* Country select (kept) */}
+              <div>
+                <label htmlFor="country" className="block text-sm font-medium text-gray-700">Country</label>
+                <select
+                  id="country"
+                  name="country"
+                  value={formData.country}
+                  onChange={handleChange}
+                  className={`mt-1 appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm ${formData.country ? 'text-gray-900' : 'text-gray-500'}`}
+                >
+                  <option value="" disabled>Select your country</option>
+                  {countryList.map((c) => (
+                    <option key={c} value={c}>{c}</option>
+                  ))}
+                </select>
               </div>
             </div>
 
@@ -157,13 +251,16 @@ const Signup = () => {
                 </Link>
               </label>
             </div>
+            {errors.agreeToTerms && <p className="mt-1 text-sm text-red-600">{errors.agreeToTerms}</p>}
+            {errors.server && <p className="mt-2 text-sm text-red-700">{errors.server}</p>}
 
             <div>
               <button
                 type="submit"
                 className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors duration-200"
+                disabled={isSubmitting}
               >
-                Create account
+                {isSubmitting ? 'Creating account...' : 'Create account'}
               </button>
             </div>
 

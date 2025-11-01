@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
+import { getHealth } from '../services/backend';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -53,6 +54,10 @@ const Navbar = () => {
             <Link to="/signup" className="bg-blue-600 text-white px-6 py-2 rounded-lg font-medium hover:bg-blue-700 transition-all duration-200 shadow-md hover:shadow-lg">
               Sign Up
             </Link>
+            {/* backend health badge */}
+            <div className="ml-4 flex items-center">
+              <HealthBadge />
+            </div>
           </div>
 
           {/* Mobile menu button */}
@@ -106,5 +111,39 @@ const Navbar = () => {
     </nav>
   );
 };
+
+function HealthBadge() {
+  const [status, setStatus] = useState({ server: 'unknown', db: 'unknown' });
+
+  useEffect(() => {
+    let mounted = true;
+
+    const fetchStatus = () => {
+      getHealth()
+        .then((s) => {
+          if (mounted) setStatus(s);
+        })
+        .catch(() => {
+          if (mounted) setStatus({ server: 'down', db: 'disconnected' });
+        });
+    };
+
+    fetchStatus();
+    const id = setInterval(fetchStatus, 15000); // refresh every 15s
+    return () => {
+      mounted = false;
+      clearInterval(id);
+    };
+  }, []);
+
+  const dbOk = status.db === 'connected';
+
+  return (
+    <div className="flex items-center text-sm text-gray-700">
+      <span className={`inline-block h-2 w-2 rounded-full mr-2 ${dbOk ? 'bg-green-500' : 'bg-red-500'}`} />
+      <span className="hidden sm:inline">DB: {status.db}</span>
+    </div>
+  );
+}
 
 export default Navbar;

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { loginUser } from '../services/backend';
 
 const Login = () => {
   const [formData, setFormData] = useState({
@@ -7,6 +8,9 @@ const Login = () => {
     password: '',
     rememberMe: false
   });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [serverError, setServerError] = useState('');
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -16,9 +20,20 @@ const Login = () => {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('Login attempt:', formData);
+    setServerError('');
+    setIsSubmitting(true);
+    
+    try {
+      const result = await loginUser({ email: formData.email, password: formData.password });
+      localStorage.setItem('token', result.token);
+      navigate('/dashboard');
+    } catch (err) {
+      setServerError(err.data?.message || 'Login failed');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -46,6 +61,7 @@ const Login = () => {
           </div>
 
           <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
+            {serverError && <p className="text-red-600 mb-2">{serverError}</p>}
             <div className="space-y-4">
               <div>
                 <label htmlFor="email" className="block text-sm font-medium text-gray-700">
@@ -105,8 +121,9 @@ const Login = () => {
               <button
                 type="submit"
                 className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors duration-200"
+                disabled={isSubmitting}
               >
-                Sign in
+                  {isSubmitting ? 'Signing in...' : 'Sign in'}
               </button>
             </div>
 

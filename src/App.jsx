@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Layout from './components/Layout';
 import Home from './pages/Home';
@@ -15,6 +15,13 @@ import ReadabilityAnalyzer from './services/ReadabilityAnalyzer';
 import KeywordChecker from './services/KeywordChecker';
 
 function App() {
+  useEffect(() => {
+    // lightweight health check on app mount
+    import('./services/backend')
+      .then(({ getHealth }) => getHealth())
+      .then((status) => console.log('backend health', status))
+      .catch((err) => console.error('health check failed', err));
+  }, []);
   return (
     <Router>
       <Layout>
